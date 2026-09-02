@@ -195,12 +195,7 @@ img { display: block; max-width: 100%; }
   font-weight: 500;
   margin-bottom: 4px;
 }
-.hero-role-sub {
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-  color: var(--text-dim);
-  font-weight: 500;
-  margin-bottom: 14px;
-}
+.hero-role-2 { margin-bottom: 14px; }
 .hero-sub {
   font-size: 1.05rem;
   color: var(--text-dim);
@@ -590,7 +585,7 @@ img { display: block; max-width: 100%; }
 .hero-photo-wrap.reveal { animation-delay: 0s; }
 .hero h1.reveal { animation-delay: 0.05s; }
 .hero-role.reveal { animation-delay: 0.15s; }
-.hero-role-sub.reveal { animation-delay: 0.2s; }
+.hero-role-2.reveal { animation-delay: 0.2s; }
 .hero-sub.reveal { animation-delay: 0.28s; }
 .hero-actions.reveal { animation-delay: 0.38s; }
 .hero-scroll.reveal { animation-delay: 0.6s; }

@@ -116,6 +116,15 @@ img { display: block; max-width: 100%; }
   padding: 120px 24px 80px;
 }
 .hero-inner { width: 100%; max-width: 720px; }
+.hero-photo {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 28px;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 6px var(--accent-soft), 0 20px 40px -20px rgba(0,0,0,0.6);
+}
 .eyebrow {
   font-size: 0.8rem;
   letter-spacing: 0.18em;
@@ -469,6 +478,7 @@ img { display: block; max-width: 100%; }
   transform: translateY(16px);
   animation: revealIn 0.8s ease forwards;
 }
+.hero-photo.reveal { animation-delay: 0s; }
 .hero h1.reveal { animation-delay: 0.05s; }
 .hero-role.reveal { animation-delay: 0.15s; }
 .hero-sub.reveal { animation-delay: 0.25s; }

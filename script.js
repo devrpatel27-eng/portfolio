@@ -31,3 +31,27 @@ const observer = new IntersectionObserver(
 );
 
 document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+document.querySelectorAll('.kicker').forEach((el) => observer.observe(el));
+
+const progressBar = document.getElementById('scrollProgress');
+function updateProgress() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+updateProgress();
+
+const magneticBtn = document.querySelector('.btn-primary');
+if (magneticBtn && matchMedia('(hover: hover)').matches) {
+  magneticBtn.addEventListener('mousemove', (e) => {
+    const rect = magneticBtn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    magneticBtn.style.transform = `translate(${x * 0.25}px, ${y * 0.25 - 2}px)`;
+  });
+  magneticBtn.addEventListener('mouseleave', () => {
+    magneticBtn.style.transform = '';
+  });
+}

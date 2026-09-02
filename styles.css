@@ -391,15 +391,6 @@ img { display: block; max-width: 100%; }
   max-height: 100%;
   object-fit: contain;
 }
-.logo-chip-text { background: #fff8ef; }
-.dunkin-mark {
-  font-family: var(--sans);
-  font-weight: 800;
-  font-size: 0.78rem;
-  letter-spacing: -0.02em;
-  color: #ff671f;
-}
-.dunkin-apostrophe { color: #da1884; }
 .timeline-body h3 {
   font-family: var(--serif);
   font-size: 1.4rem;

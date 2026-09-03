@@ -54,8 +54,12 @@
 
   <section class="section" id="about">
     <div class="section-inner">
-      <p class="kicker">01 — About</p>
-      <h2>Grounded in numbers.<br>Built for people.</h2>
+      <button class="section-toggle" aria-expanded="true" aria-controls="about-panel" data-section="about">
+        <span class="kicker">01 — About</span>
+        <h2>Grounded in numbers.<br>Built for people.</h2>
+        <span class="toggle-icon" aria-hidden="true"></span>
+      </button>
+      <div class="section-collapse open" id="about-panel"><div class="section-collapse-inner">
       <div class="about-grid">
         <p class="about-text">
           I'm a Business Administration student at UMass Lowell concentrating in
@@ -80,13 +84,18 @@
           </div>
         </div>
       </div>
+      </div></div>
     </div>
   </section>
 
   <section class="section section-alt" id="experience">
     <div class="section-inner">
-      <p class="kicker">02 — Experience</p>
-      <h2>Professional Experience</h2>
+      <button class="section-toggle" aria-expanded="false" aria-controls="experience-panel" data-section="experience">
+        <span class="kicker">02 — Experience</span>
+        <h2>Professional Experience</h2>
+        <span class="toggle-icon" aria-hidden="true"></span>
+      </button>
+      <div class="section-collapse" id="experience-panel"><div class="section-collapse-inner">
       <div class="timeline">
 
         <article class="timeline-item">
@@ -100,9 +109,9 @@
               </div>
             </div>
             <ul>
-              <li>Process 15–20 customer transactions daily on the teller line with strong accuracy and full regulatory compliance</li>
-              <li>Rotate into account maintenance and outbound client calls, proactively identifying account needs and resolving issues</li>
-              <li>Analyze customer financial needs and recommend banking solutions, building consultative sales and relationship-management skills</li>
+              <li>Execute 15–20 customer transactions daily on the teller line with strong accuracy and full regulatory compliance</li>
+              <li>Guide account maintenance and outbound client calls, proactively identifying account needs and resolving issues</li>
+              <li>Evaluate customer financial needs and recommend appropriate banking solutions, strengthening consultative sales and relationship-management skills</li>
             </ul>
           </div>
         </article>
@@ -141,13 +150,18 @@
         </article>
 
       </div>
+      </div></div>
     </div>
   </section>
 
   <section class="section" id="leadership">
     <div class="section-inner">
-      <p class="kicker">03 — Leadership</p>
-      <h2>Leadership Experience</h2>
+      <button class="section-toggle" aria-expanded="false" aria-controls="leadership-panel" data-section="leadership">
+        <span class="kicker">03 — Leadership</span>
+        <h2>Leadership Experience</h2>
+        <span class="toggle-icon" aria-hidden="true"></span>
+      </button>
+      <div class="section-collapse" id="leadership-panel"><div class="section-collapse-inner">
       <div class="cards-grid">
 
         <article class="card">
@@ -158,9 +172,9 @@
           <p class="card-org">Gujarati Student Association (GUSA), UML</p>
           <ul>
             <li>Founded the organization and secured official university recognition from the ground up</li>
-            <li>Lead executive board operations, strategic planning, and end-to-end event execution</li>
+            <li>Direct executive board operations, strategic planning, and end-to-end event execution</li>
             <li>Grew student engagement through professional, networking, and cultural programming</li>
-            <li>Own logistics, budgeting, and team operations across the organization</li>
+            <li>Oversee logistics, budgeting, and team operations across the organization</li>
           </ul>
         </article>
 
@@ -172,7 +186,7 @@
           <p class="card-org">Family Liquor Store (Family Business)</p>
           <ul>
             <li>Sole technology resource for a family-owned retail store — hardware, software, and connectivity</li>
-            <li>Led a complete technology overhaul during a full store renovation: new POS, payment, and networking systems</li>
+            <li>Spearheaded a complete technology overhaul during a full store renovation: new POS, payment, and networking systems</li>
             <li>Continuously introduce new technology to improve day-to-day efficiency and customer experience</li>
           </ul>
         </article>
@@ -184,21 +198,26 @@
           </div>
           <p class="card-org">Bhagat Samaj</p>
           <ul>
-            <li>Plan and execute community programs for a 1,000+ member community, from small gatherings to 200+ attendee events</li>
+            <li>Organize and execute community programs for a 1,000+ member community, from small gatherings to 200+ attendee events</li>
             <li>Co-organized "Youth Milan," a national youth cultural event — helping plan the 2027 installment</li>
-            <li>Lead audio/lighting production as event DJ; co-authored a five-year strategic growth plan (2026–2031)</li>
-            <li>Design and lead youth leadership development programming, mentoring incoming volunteers</li>
+            <li>Direct audio/lighting production as event DJ, formalizing operational standards and workflows for the DJ &amp; Lighting Program</li>
+            <li>Develop and direct youth leadership development programming, mentoring incoming volunteers</li>
           </ul>
         </article>
 
       </div>
+      </div></div>
     </div>
   </section>
 
   <section class="section section-alt" id="projects">
     <div class="section-inner">
-      <p class="kicker">04 — Projects</p>
-      <h2>Academic Projects</h2>
+      <button class="section-toggle" aria-expanded="false" aria-controls="projects-panel" data-section="projects">
+        <span class="kicker">04 — Projects</span>
+        <h2>Academic Projects</h2>
+        <span class="toggle-icon" aria-hidden="true"></span>
+      </button>
+      <div class="section-collapse" id="projects-panel"><div class="section-collapse-inner">
       <div class="projects-grid">
 
         <article class="project">
@@ -211,18 +230,23 @@
         <article class="project">
           <span class="project-tag">Statistics · Regression</span>
           <h3>Regression Analysis of Top Hits in Music</h3>
-          <p>Built a multivariate regression model analyzing 13 variables from Spotify and YouTube data to predict song popularity (R² of 0.32–0.34).</p>
+          <p>Engineered a multivariate regression model analyzing 13 variables from Spotify and YouTube data to predict song popularity (R² of 0.32–0.34).</p>
           <p>Presented findings to peers and faculty, earning "Fan Favorite" recognition.</p>
         </article>
 
       </div>
+      </div></div>
     </div>
   </section>
 
   <section class="section" id="skills">
     <div class="section-inner">
-      <p class="kicker">05 — Skills</p>
-      <h2>Technical Skills</h2>
+      <button class="section-toggle" aria-expanded="false" aria-controls="skills-panel" data-section="skills">
+        <span class="kicker">05 — Skills</span>
+        <h2>Technical Skills</h2>
+        <span class="toggle-icon" aria-hidden="true"></span>
+      </button>
+      <div class="section-collapse" id="skills-panel"><div class="section-collapse-inner">
       <div class="skills-grid">
 
         <div class="skill-group">
@@ -268,13 +292,18 @@
         </div>
 
       </div>
+      </div></div>
     </div>
   </section>
 
   <section class="section contact" id="contact">
     <div class="section-inner">
-      <p class="kicker">06 — Contact</p>
-      <h2>Let's talk.</h2>
+      <button class="section-toggle" aria-expanded="false" aria-controls="contact-panel" data-section="contact">
+        <span class="kicker">06 — Contact</span>
+        <h2>Let's talk.</h2>
+        <span class="toggle-icon" aria-hidden="true"></span>
+      </button>
+      <div class="section-collapse" id="contact-panel"><div class="section-collapse-inner">
       <p class="contact-sub">Open to internships and opportunities in analytics, operations, and financial services.</p>
       <div class="contact-links">
         <a href="mailto:devrpatel27@gmail.com" class="contact-link">
@@ -294,6 +323,7 @@
           <span class="contact-value">Tyngsborough, MA</span>
         </a>
       </div>
+      </div></div>
     </div>
   </section>
 

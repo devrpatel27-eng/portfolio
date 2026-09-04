@@ -1,32 +1,5 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const sectionToggles = document.querySelectorAll('.section-toggle');
-function setSectionOpen(toggle, open) {
-  toggle.setAttribute('aria-expanded', String(open));
-  const panel = document.getElementById(toggle.getAttribute('aria-controls'));
-  panel.classList.toggle('open', open);
-}
-sectionToggles.forEach((toggle) => {
-  toggle.addEventListener('click', () => {
-    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    setSectionOpen(toggle, !isOpen);
-  });
-});
-
-function openSectionById(id) {
-  const toggle = document.querySelector(`.section-toggle[data-section="${id}"]`);
-  if (toggle && toggle.getAttribute('aria-expanded') !== 'true') {
-    setSectionOpen(toggle, true);
-  }
-}
-
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-  link.addEventListener('click', () => {
-    const id = link.getAttribute('href').slice(1);
-    openSectionById(id);
-  });
-});
-
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 

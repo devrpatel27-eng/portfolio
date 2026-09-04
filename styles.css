@@ -264,25 +264,12 @@ img { display: block; max-width: 100%; }
 .section-alt { background: var(--bg-alt); }
 .section-inner { max-width: var(--maxw); margin: 0 auto; }
 .kicker {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
   font-size: 0.8rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 16px;
 }
-.kicker::before {
-  content: "";
-  display: inline-block;
-  width: 0;
-  height: 1px;
-  background: var(--accent);
-  transition: width 0.6s ease 0.1s;
-}
-.kicker.in-view::before { width: 28px; }
 .section h2 {
   font-family: var(--serif);
   font-size: clamp(2rem, 4.5vw, 3rem);

@@ -31,7 +31,6 @@ const observer = new IntersectionObserver(
 );
 
 document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
-document.querySelectorAll('.kicker').forEach((el) => observer.observe(el));
 
 const progressBar = document.getElementById('scrollProgress');
 function updateProgress() {

@@ -398,7 +398,7 @@ img { display: block; max-width: 100%; }
 /* CARDS (leadership) */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 .card {
@@ -467,6 +467,13 @@ img { display: block; max-width: 100%; }
   transform: translateY(-4px);
   box-shadow: 0 24px 48px -24px rgba(212,162,78,0.3);
 }
+.project-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
 .project-tag {
   display: inline-block;
   font-size: 0.72rem;
@@ -476,13 +483,15 @@ img { display: block; max-width: 100%; }
   background: var(--accent-soft);
   padding: 5px 12px;
   border-radius: 999px;
-  margin-bottom: 16px;
 }
+.project-date { font-size: 0.78rem; color: var(--text-faint); white-space: nowrap; }
 .project h3 {
   font-family: var(--serif);
   font-size: 1.3rem;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
 }
+.project-org { color: var(--accent); font-size: 0.88rem; margin-bottom: 12px; }
+.project h3 + p { margin-top: 8px; }
 .project p {
   color: var(--text-dim);
   font-size: 0.95rem;

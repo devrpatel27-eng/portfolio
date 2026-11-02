@@ -4,10 +4,11 @@ A personal portfolio website built with plain HTML, CSS, and JavaScript (no buil
 
 ## Structure
 
-- `index.html` — page content (About, Experience, Leadership, Projects, Skills, Contact)
+- `index.html` — page content (Work, Experience, Leadership, Skills, Contact)
 - `styles.css` — styling
-- `script.js` — mobile nav toggle + scroll reveal animations
-- `Dev_Patel_Resume.docx` — downloadable résumé
+- `script.js` — mobile nav and the interactive deposits chart in the hero
+- `projects/` — full write-ups (with code and charts) for each analysis
+- `Dev_Patel_Resume.pdf` — downloadable résumé
 
 ## Running locally
 
@@ -19,7 +20,7 @@ python3 -m http.server 8000
 
 ## Deploying
 
-This is a static site — it can be hosted directly with GitHub Pages:
+Hosted on GitHub Pages, deployed from the root of `main`:
+https://devrpatel27-eng.github.io/portfolio/
 
-1. Repo Settings → Pages → Source: deploy from branch (`main`, root)
-2. The site will be published at `https://<username>.github.io/portfolio/`
+Every push to `main` republishes the site within a minute or two.

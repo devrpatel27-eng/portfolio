@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regression Analysis of Top Hits in Music | Dev Patel</title>
+<meta name="description" content="Multivariate regression predicting Spotify streams from 13 Spotify and YouTube variables. Data cleaning, EDA, OLS results, validation and full Python code.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🟦</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.cs { max-width: 920px; margin: 0 auto; padding: 120px 24px 96px; display: grid; gap: 56px; }
+.cs section { display: grid; gap: 16px; min-width: 0; }
+.cs .prose { max-width: 68ch; }
+.cs h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; font-weight: 600; text-wrap: balance; }
+.cs h2 { font-family: var(--serif); font-size: 1.6rem; line-height: 1.2; font-weight: 600; text-wrap: balance; }
+.cs p, .cs li { color: var(--text-dim); line-height: 1.7; }
+.cs p b, .cs li b { color: var(--text); font-weight: 600; }
+.cs code { font-family: ui-monospace, Menlo, monospace; font-size: .88em; color: var(--text); background: var(--surface-2); padding: 1px 6px; border-radius: 4px; }
+.cs ol, .cs ul.dots { display: grid; gap: 8px; padding-left: 1.3em; }
+.cs ol { list-style: decimal; }
+.cs ul.dots { list-style: disc; }
+.cs ol li::marker, .cs ul.dots li::marker { color: var(--accent); }
+.back { color: var(--accent); font-size: .9rem; }
+.back:hover { text-decoration: underline; }
+.cs-head { display: grid; gap: 14px; }
+.cs-meta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.cs-meta .project-date { font-size: .85rem; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: grid; gap: 6px; }
+.stat b { font-family: var(--serif); font-size: 2rem; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat span { font-size: .85rem; color: var(--text-dim); line-height: 1.4; }
+.fig { display: grid; gap: 10px; margin: 0; }
+.fig img { background: #fff; border-radius: 12px; border: 1px solid var(--border); width: 100%; }
+.fig figcaption { font-size: .88rem; color: var(--text-faint); }
+.tbl { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
+.tbl table { border-collapse: collapse; width: 100%; font: .85rem/1.4 ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; }
+.tbl th, .tbl td { padding: 10px 14px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--border); color: var(--text); }
+.tbl th:first-child, .tbl td:first-child { text-align: left; font-family: var(--sans); }
+.tbl th { font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); font-weight: 600; }
+.tbl tr:last-child td { border-bottom: 0; }
+.tbl tr.ns td { color: var(--text-faint); }
+.st { color: var(--accent); margin-left: 2px; }
+.small { font-size: .85rem; color: var(--text-faint) !important; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: start; }
+.two > * { min-width: 0; }
+.code-bar { display: flex; flex-wrap: wrap; gap: 12px; }
+.cs pre { margin: 0; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 14px; padding: 18px; overflow: auto; max-height: 560px; font: .8rem/1.6 ui-monospace, Menlo, monospace; color: var(--text); }
+.cs .btn { cursor: pointer; font: inherit; font-size: .9rem; }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<header class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-brand">DP</a>
+    <a href="../index.html#projects" class="nav-cta">All projects</a>
+  </div>
+</header>
+
+<main class="cs">
+  <div class="cs-head">
+    <a class="back" href="../index.html#projects">← Back to projects</a>
+    <div class="cs-meta"><span class="project-tag">Statistics · Regression</span><span class="project-date">Spring 2026 · Academic project · "Fan Favorite"</span></div>
+    <h1>Regression Analysis of Top Hits in Music</h1>
+    <p class="prose">A multivariate OLS regression that predicts how much a song is streamed on Spotify from 11 Spotify audio features and 2 YouTube variables. Built in Python on the <a href="https://www.kaggle.com/datasets/salvatorerastelli/spotify-and-youtube" target="_blank" rel="noopener" style="color:var(--accent)">Spotify and Youtube</a> Kaggle dataset (20,718 songs).</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>0.39</b><span>R² (share of variation in streams explained)</span></div>
+    <div class="stat"><b>0.39</b><span>5 fold cross validated R²</span></div>
+    <div class="stat"><b>13</b><span>predictor variables</span></div>
+    <div class="stat"><b>18K</b><span>songs after cleaning</span></div>
+  </div>
+
+  <section class="prose">
+    <p class="kicker">01. Question</p>
+    <h2>What makes a hit stream?</h2>
+    <p>Can a song's sound (how danceable, loud, acoustic or wordy it is) plus its reach on YouTube explain its popularity on Spotify? The target is <code>log(1 + Spotify streams)</code>. The 13 predictors are Danceability, Energy, Key, Loudness, Speechiness, Acousticness, Instrumentalness, Liveness, Valence, Tempo, Duration, log(YouTube views) and an official video flag.</p>
+  </section>
+
+  <section>
+    <p class="kicker">02. Data cleaning</p>
+    <h2>From 20,718 rows to 17,966</h2>
+    <ol class="prose">
+      <li>Converted <code>Licensed</code> and <code>official_video</code> from True/False to 1/0 and duration from milliseconds to minutes.</li>
+      <li>Removed rows missing any model variable (576 songs have no stream count; 470 have no YouTube match).</li>
+      <li>Removed duplicate Spotify tracks that matched several YouTube videos (2,752 rows dropped in total).</li>
+      <li>Log transformed streams and views. Raw streams have a skewness of 4.11; after the log it is -0.62.</li>
+    </ol>
+    <figure class="fig"><img src="music-regression/fig2_target_distribution.png" alt="Histograms of raw and log Spotify streams" loading="lazy">
+      <figcaption>Raw streams are dominated by a few mega hits; the log scale makes the relationship roughly linear.</figcaption></figure>
+  </section>
+
+  <section>
+    <p class="kicker">03. Exploratory analysis</p>
+    <h2>YouTube views carry most of the signal</h2>
+    <p class="prose">The strongest single correlate of log streams is log YouTube views (r = 0.60). Among audio features, loudness (r = 0.16) is the strongest positive and speechiness (r = -0.13) the strongest negative.</p>
+    <figure class="fig"><img src="music-regression/fig1_correlation.png" alt="Correlation heatmap of the 13 predictors and log streams" loading="lazy">
+      <figcaption>Pearson correlations. Bottom row: each predictor against log(Spotify streams).</figcaption></figure>
+  </section>
+
+  <section>
+    <p class="kicker">04. Model</p>
+    <h2>OLS results</h2>
+    <p class="prose">R² = 0.3900 · Adjusted R² = 0.3896 · F(13, 17,952) = 882.9, p &lt; 0.001. Grey rows are not significant at 5%. Standardized β is the change in standard deviations of log streams for a one SD change in the predictor.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Variable</th><th>Coef</th><th>Std err</th><th>t</th><th>p</th><th>Std β</th><th>VIF</th></tr></thead>
+      <tbody>
+<tr><td>Intercept</td><td>+13.0539</td><td>0.1246</td><td>104.79</td><td>&lt;0.001<span class="st">***</span></td><td></td><td></td></tr>
+<tr><td>Danceability</td><td>-0.1785</td><td>0.0745</td><td>-2.40</td><td>0.017<span class="st">*</span></td><td>-0.018</td><td>1.62</td></tr>
+<tr><td>Energy</td><td>-0.7002</td><td>0.0834</td><td>-8.40</td><td>&lt;0.001<span class="st">***</span></td><td>-0.091</td><td>3.45</td></tr>
+<tr><td>Key</td><td>-0.0068</td><td>0.0027</td><td>-2.50</td><td>0.013<span class="st">*</span></td><td>-0.015</td><td>1.00</td></tr>
+<tr><td>Loudness</td><td>+0.0129</td><td>0.0038</td><td>3.41</td><td>&lt;0.001<span class="st">***</span></td><td>+0.036</td><td>3.23</td></tr>
+<tr><td>Speechiness</td><td>-1.4674</td><td>0.0953</td><td>-15.40</td><td>&lt;0.001<span class="st">***</span></td><td>-0.094</td><td>1.10</td></tr>
+<tr><td>Acousticness</td><td>-0.4392</td><td>0.0465</td><td>-9.45</td><td>&lt;0.001<span class="st">***</span></td><td>-0.076</td><td>1.92</td></tr>
+<tr class="ns"><td>Instrumentalness</td><td>-0.0145</td><td>0.0622</td><td>-0.23</td><td>0.816<span class="st"></span></td><td>-0.002</td><td>1.54</td></tr>
+<tr><td>Liveness</td><td>-0.2984</td><td>0.0608</td><td>-4.91</td><td>&lt;0.001<span class="st">***</span></td><td>-0.029</td><td>1.07</td></tr>
+<tr><td>Valence</td><td>-0.2509</td><td>0.0484</td><td>-5.18</td><td>&lt;0.001<span class="st">***</span></td><td>-0.037</td><td>1.53</td></tr>
+<tr class="ns"><td>Tempo</td><td>+0.0005</td><td>0.0003</td><td>1.57</td><td>0.117<span class="st"></span></td><td>+0.009</td><td>1.07</td></tr>
+<tr><td>Duration (min)</td><td>-0.0363</td><td>0.0065</td><td>-5.62</td><td>&lt;0.001<span class="st">***</span></td><td>-0.033</td><td>1.04</td></tr>
+<tr><td>log(YouTube views)</td><td>+0.3876</td><td>0.0040</td><td>97.16</td><td>&lt;0.001<span class="st">***</span></td><td>+0.645</td><td>1.30</td></tr>
+<tr><td>Official video (1/0)</td><td>-0.5684</td><td>0.0252</td><td>-22.59</td><td>&lt;0.001<span class="st">***</span></td><td>-0.143</td><td>1.18</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">*** p &lt; 0.001 · ** p &lt; 0.01 · * p &lt; 0.05. All VIFs are below 3.5, so multicollinearity is not a concern.</p>
+    <figure class="fig"><img src="music-regression/fig4_std_coefficients.png" alt="Bar chart of standardized coefficients" loading="lazy">
+      <figcaption>log(YouTube views) has by far the largest standardized effect.</figcaption></figure>
+  </section>
+
+  <section>
+    <p class="kicker">05. Validation</p>
+    <h2>The fit holds on unseen data</h2>
+    <div class="two">
+      <div class="prose" style="display:grid;gap:12px">
+        <p>Cross validated R² per fold: 0.394 · 0.383 · 0.398 · 0.380 · 0.387. Train R² 0.389 vs. held out test R² 0.394, so the model is not overfitting.</p>
+        <p>Residuals center on zero with a slightly heavy left tail: songs that stream far less than their YouTube reach predicts.</p>
+      </div>
+      <div class="tbl"><table>
+        <thead><tr><th>Predictors</th><th>R²</th></tr></thead>
+        <tbody><tr><td>11 audio features only</td><td>0.064</td></tr>
+        <tr><td>2 YouTube variables only</td><td>0.371</td></tr>
+        <tr><td>All 13</td><td>0.390</td></tr></tbody>
+      </table></div>
+    </div>
+    <figure class="fig"><img src="music-regression/fig3_diagnostics.png" alt="Actual vs predicted, residuals vs fitted, and Q-Q plot" loading="lazy">
+      <figcaption>Actual vs. predicted, residuals vs. fitted, and a normal Q-Q plot of residuals.</figcaption></figure>
+  </section>
+
+  <section class="prose">
+    <p class="kicker">06. Findings</p>
+    <h2>What the model says</h2>
+    <ul class="dots">
+      <li><b>Cross platform reach dominates.</b> 10% more YouTube views goes with about 3.8% more Spotify streams. YouTube variables alone explain R² = 0.37; sound alone explains 0.06.</li>
+      <li><b>Sound still matters at the margin.</b> Holding reach constant, wordier, more acoustic, higher energy and longer tracks stream less; louder tracks stream more.</li>
+      <li><b>Official videos flip sign.</b> They correlate positively with streams but get a negative coefficient once views are controlled: official videos pull more YouTube views per Spotify stream.</li>
+      <li><b>About 61% of the variation is unexplained.</b> Marketing, playlist placement, artist fame and release date are not in the data.</li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="kicker">07. Code</p>
+    <h2>Full Python script</h2>
+    <p class="prose">pandas, NumPy, SciPy, scikit-learn, matplotlib and seaborn. Run with <code>python spotify_youtube_regression.py Spotify_Youtube.csv</code>.</p>
+    <div class="code-bar">
+      <button class="btn btn-primary" id="copyCode" type="button">Copy code</button>
+      <a class="btn btn-ghost" href="https://github.com/devrpatel27-eng/portfolio/blob/main/projects/music-regression/spotify_youtube_regression.py" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+    <pre id="code"><code>&quot;&quot;&quot;
+Regression Analysis of Top Hits in Music
+Dataset: &quot;Spotify and Youtube&quot; (Kaggle, salvatorerastelli/spotify-and-youtube) -&gt; Spotify_Youtube.csv
+
+Question: How well can a song&#x27;s audio features plus its YouTube reach predict
+its popularity on Spotify (total streams)?
+
+Model: multivariate OLS regression, 13 predictors
+  - 11 Spotify audio features: Danceability, Energy, Key, Loudness, Speechiness,
+    Acousticness, Instrumentalness, Liveness, Valence, Tempo, Duration (min)
+  - 2 YouTube variables: log(YouTube views), official_video (1/0)
+  Target: log(Spotify streams)
+
+Run:  python spotify_youtube_regression.py Spotify_Youtube.csv
+Needs: pandas, numpy, scipy, scikit-learn, matplotlib, seaborn
+&quot;&quot;&quot;
+import json
+import sys
+from pathlib import Path
+
+import matplotlib
+matplotlib.use(&quot;Agg&quot;)
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+from scipy import stats
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import KFold, cross_val_score, train_test_split
+
+CSV = sys.argv[1] if len(sys.argv) &gt; 1 else &quot;Spotify_Youtube.csv&quot;
+OUT = Path(sys.argv[2]) if len(sys.argv) &gt; 2 else Path(&quot;output&quot;)
+OUT.mkdir(parents=True, exist_ok=True)
+results = {}
+
+# ---------------------------------------------------------------- 1. Load
+df = pd.read_csv(CSV).drop(columns=[&quot;Unnamed: 0&quot;])
+results[&quot;raw_shape&quot;] = list(df.shape)
+results[&quot;missing&quot;] = {c: int(v) for c, v in df.isna().sum().items() if v &gt; 0}
+
+# ---------------------------------------------------------------- 2. Clean
+for c in [&quot;Licensed&quot;, &quot;official_video&quot;]:
+    df[c] = df[c].map({True: 1, False: 0, &quot;True&quot;: 1, &quot;False&quot;: 0})
+
+df[&quot;Duration_min&quot;] = df[&quot;Duration_ms&quot;] / 60000
+df[&quot;log_stream&quot;] = np.log1p(df[&quot;Stream&quot;])   # streams are extremely right-skewed
+df[&quot;log_views&quot;] = np.log1p(df[&quot;Views&quot;])
+
+AUDIO = [&quot;Danceability&quot;, &quot;Energy&quot;, &quot;Key&quot;, &quot;Loudness&quot;, &quot;Speechiness&quot;,
+         &quot;Acousticness&quot;, &quot;Instrumentalness&quot;, &quot;Liveness&quot;, &quot;Valence&quot;,
+         &quot;Tempo&quot;, &quot;Duration_min&quot;]
+YOUTUBE = [&quot;log_views&quot;, &quot;official_video&quot;]
+X_COLS = AUDIO + YOUTUBE            # 13 predictors
+Y = &quot;log_stream&quot;
+
+before = len(df)
+df = df.dropna(subset=X_COLS + [Y]).drop_duplicates(subset=[&quot;Uri&quot;]).reset_index(drop=True)
+results[&quot;rows_after_cleaning&quot;] = len(df)
+results[&quot;rows_dropped&quot;] = before - len(df)
+results[&quot;skew&quot;] = {&quot;Stream&quot;: round(float(pd.read_csv(CSV)[&quot;Stream&quot;].skew()), 2),
+                   &quot;log_stream&quot;: round(float(df[Y].skew()), 2)}
+
+# ---------------------------------------------------------------- 3. EDA
+desc = df[X_COLS + [&quot;Stream&quot;, &quot;Views&quot;]].describe().T[[&quot;mean&quot;, &quot;std&quot;, &quot;min&quot;, &quot;50%&quot;, &quot;max&quot;]]
+results[&quot;describe&quot;] = desc.round(3).reset_index().rename(columns={&quot;index&quot;: &quot;var&quot;}).to_dict(&quot;records&quot;)
+
+corr = df[X_COLS + [Y]].corr()
+results[&quot;corr_with_target&quot;] = corr[Y].drop(Y).sort_values(key=abs, ascending=False).round(3).to_dict()
+
+sns.set_theme(style=&quot;white&quot;, font_scale=0.85)
+fig, ax = plt.subplots(figsize=(9, 7.5))
+sns.heatmap(corr, cmap=&quot;RdBu_r&quot;, center=0, vmin=-1, vmax=1, annot=True, fmt=&quot;.2f&quot;,
+            annot_kws={&quot;size&quot;: 7}, square=True, cbar_kws={&quot;shrink&quot;: .7}, ax=ax)
+ax.set_title(&quot;Correlation matrix: 13 predictors + log(Spotify streams)&quot;)
+fig.tight_layout(); fig.savefig(OUT / &quot;fig1_correlation.png&quot;, dpi=150); plt.close(fig)
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 3.6))
+axes[0].hist(df[&quot;Stream&quot;] / 1e6, bins=60, color=&quot;#4C72B0&quot;)
+axes[0].set(title=&quot;Spotify streams (raw)&quot;, xlabel=&quot;Streams (millions)&quot;, ylabel=&quot;Songs&quot;)
+axes[1].hist(df[Y], bins=60, color=&quot;#55A868&quot;)
+axes[1].set(title=&quot;log(Spotify streams)&quot;, xlabel=&quot;log(1 + streams)&quot;)
+fig.tight_layout(); fig.savefig(OUT / &quot;fig2_target_distribution.png&quot;, dpi=150); plt.close(fig)
+
+# ---------------------------------------------------------------- 4. OLS (full sample)
+def ols(X, y):
+    &quot;&quot;&quot;OLS with intercept; returns coefficient table and fit statistics.&quot;&quot;&quot;
+    Xc = np.column_stack([np.ones(len(X)), X.values])
+    n, k = Xc.shape
+    beta, *_ = np.linalg.lstsq(Xc, y.values, rcond=None)
+    resid = y.values - Xc @ beta
+    sse, sst = resid @ resid, ((y - y.mean()) ** 2).sum()
+    r2 = 1 - sse / sst
+    adj = 1 - (1 - r2) * (n - 1) / (n - k)
+    sigma2 = sse / (n - k)
+    se = np.sqrt(np.diag(sigma2 * np.linalg.inv(Xc.T @ Xc)))
+    t = beta / se
+    p = 2 * stats.t.sf(np.abs(t), n - k)
+    f = (r2 / (k - 1)) / ((1 - r2) / (n - k))
+    table = pd.DataFrame({&quot;coef&quot;: beta, &quot;std_err&quot;: se, &quot;t&quot;: t, &quot;p_value&quot;: p},
+                         index=[&quot;Intercept&quot;] + list(X.columns))
+    return table, dict(n=n, k=k - 1, r2=r2, adj_r2=adj, f_stat=f,
+                       f_p=stats.f.sf(f, k - 1, n - k), rmse=np.sqrt(sse / n)), resid, Xc @ beta
+
+table, fit, resid, fitted = ols(df[X_COLS], df[Y])
+
+# standardized betas: effect of a 1-SD change, comparable across predictors
+z = (df[X_COLS] - df[X_COLS].mean()) / df[X_COLS].std()
+std_table, *_ = ols(z, (df[Y] - df[Y].mean()) / df[Y].std())
+table[&quot;std_beta&quot;] = std_table[&quot;coef&quot;]
+table.loc[&quot;Intercept&quot;, &quot;std_beta&quot;] = np.nan
+
+# VIF: multicollinearity check
+def vif(X):
+    out = {}
+    for c in X.columns:
+        others = X.drop(columns=c)
+        r2 = LinearRegression().fit(others, X[c]).score(others, X[c])
+        out[c] = 1 / (1 - r2)
+    return out
+table[&quot;VIF&quot;] = pd.Series(vif(df[X_COLS]))
+
+results[&quot;fit&quot;] = {k: (round(float(v), 4) if isinstance(v, float) else v) for k, v in fit.items()}
+results[&quot;fit&quot;][&quot;f_p&quot;] = float(fit[&quot;f_p&quot;])
+results[&quot;coef_table&quot;] = table.reset_index().rename(columns={&quot;index&quot;: &quot;var&quot;}).round(4).to_dict(&quot;records&quot;)
+
+# ---------------------------------------------------------------- 5. Validation
+lr = LinearRegression()
+cv = cross_val_score(lr, df[X_COLS], df[Y], cv=KFold(5, shuffle=True, random_state=42), scoring=&quot;r2&quot;)
+Xtr, Xte, ytr, yte = train_test_split(df[X_COLS], df[Y], test_size=0.2, random_state=42)
+lr.fit(Xtr, ytr)
+results[&quot;validation&quot;] = {&quot;cv5_r2_mean&quot;: round(float(cv.mean()), 4), &quot;cv5_r2_std&quot;: round(float(cv.std()), 4),
+                         &quot;cv5_folds&quot;: [round(float(v), 4) for v in cv],
+                         &quot;train_r2&quot;: round(lr.score(Xtr, ytr), 4), &quot;test_r2&quot;: round(lr.score(Xte, yte), 4)}
+
+# audio-only vs. YouTube-only: where does the explanatory power come from?
+_, fit_audio, *_ = ols(df[AUDIO], df[Y])
+_, fit_yt, *_ = ols(df[YOUTUBE], df[Y])
+results[&quot;comparison&quot;] = {&quot;audio_only_r2&quot;: round(fit_audio[&quot;r2&quot;], 4),
+                         &quot;youtube_only_r2&quot;: round(fit_yt[&quot;r2&quot;], 4),
+                         &quot;full_13_r2&quot;: round(fit[&quot;r2&quot;], 4)}
+
+# ---------------------------------------------------------------- 6. Diagnostic plots
+fig, axes = plt.subplots(1, 3, figsize=(13, 3.8))
+axes[0].scatter(fitted, df[Y], s=3, alpha=.25, color=&quot;#4C72B0&quot;)
+lim = [df[Y].min(), df[Y].max()]
+axes[0].plot(lim, lim, color=&quot;#C44E52&quot;, lw=1)
+axes[0].set(title=f&quot;Actual vs. predicted (R² = {fit[&#x27;r2&#x27;]:.3f})&quot;, xlabel=&quot;Predicted log streams&quot;, ylabel=&quot;Actual log streams&quot;)
+axes[1].scatter(fitted, resid, s=3, alpha=.25, color=&quot;#4C72B0&quot;)
+axes[1].axhline(0, color=&quot;#C44E52&quot;, lw=1)
+axes[1].set(title=&quot;Residuals vs. fitted&quot;, xlabel=&quot;Predicted log streams&quot;, ylabel=&quot;Residual&quot;)
+stats.probplot(resid, dist=&quot;norm&quot;, plot=axes[2])
+axes[2].set_title(&quot;Normal Q-Q of residuals&quot;)
+axes[2].get_lines()[0].set(markersize=2, alpha=.3)
+fig.tight_layout(); fig.savefig(OUT / &quot;fig3_diagnostics.png&quot;, dpi=150); plt.close(fig)
+
+sb = table.drop(&quot;Intercept&quot;).sort_values(&quot;std_beta&quot;)
+fig, ax = plt.subplots(figsize=(7, 5))
+colors = [&quot;#C44E52&quot; if p &gt;= .05 else (&quot;#4C72B0&quot; if b &gt; 0 else &quot;#DD8452&quot;) for b, p in zip(sb.std_beta, sb.p_value)]
+ax.barh(sb.index, sb.std_beta, color=colors)
+ax.axvline(0, color=&quot;#333&quot;, lw=.8)
+ax.set(title=&quot;Standardized coefficients (red = not significant at 5%)&quot;, xlabel=&quot;Effect of +1 SD on log streams (in SDs)&quot;)
+fig.tight_layout(); fig.savefig(OUT / &quot;fig4_std_coefficients.png&quot;, dpi=150); plt.close(fig)
+
+# ---------------------------------------------------------------- 7. Report
+(OUT / &quot;results.json&quot;).write_text(json.dumps(results, indent=2, default=float))
+pd.set_option(&quot;display.width&quot;, 140)
+print(f&quot;Rows: {results[&#x27;raw_shape&#x27;][0]} raw -&gt; {fit[&#x27;n&#x27;]} after cleaning&quot;)
+print(f&quot;R² = {fit[&#x27;r2&#x27;]:.4f} | Adj R² = {fit[&#x27;adj_r2&#x27;]:.4f} | F = {fit[&#x27;f_stat&#x27;]:.1f} (p = {fit[&#x27;f_p&#x27;]:.2e}) | RMSE = {fit[&#x27;rmse&#x27;]:.3f}&quot;)
+print(f&quot;5-fold CV R² = {cv.mean():.4f} ± {cv.std():.4f} | test R² = {results[&#x27;validation&#x27;][&#x27;test_r2&#x27;]}&quot;)
+print(&quot;Audio-only R²:&quot;, results[&quot;comparison&quot;][&quot;audio_only_r2&quot;], &quot;| YouTube-only R²:&quot;, results[&quot;comparison&quot;][&quot;youtube_only_r2&quot;])
+print(table.round(4).to_string())
+</code></pre>
+  </section>
+
+  <a class="back" href="../index.html#projects">← Back to projects</a>
+</main>
+<script>
+document.getElementById('copyCode').addEventListener('click', (e) => {
+  const b = e.currentTarget, t = document.getElementById('code').innerText;
+  navigator.clipboard.writeText(t).then(() => { b.textContent = 'Copied'; setTimeout(() => (b.textContent = 'Copy code'), 1500); })
+    .catch(() => { b.textContent = 'Copy failed'; });
+});
+</script>
+</body>
+</html>

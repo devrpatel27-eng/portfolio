@@ -630,3 +630,11 @@ img { display: block; max-width: 100%; }
   .nav-toggle { display: flex; }
   .section { padding: 80px 20px; }
 }
+
+.project-link {
+  color: var(--accent);
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.project-link:hover { border-bottom-color: var(--accent); }

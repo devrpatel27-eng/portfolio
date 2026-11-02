@@ -19,7 +19,7 @@
   <div class="nav-inner">
     <a href="#top" class="nav-brand">Dev Patel</a>
     <nav class="nav-links" id="navLinks" aria-label="Main">
-      <a href="#work">Work</a>
+      <a href="#work">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#leadership">Leadership</a>
       <a href="#skills">Skills</a>
@@ -36,92 +36,71 @@
 
   <section class="hero" id="top">
     <div class="hero-inner">
-      <div class="hero-text">
-        <img src="assets/dev-patel.jpg" alt="Portrait of Dev Patel" class="hero-photo" width="88" height="88">
-        <h1>Dev Patel</h1>
-        <p class="hero-lede">I study information systems and analytics at UMass Lowell and work as an Associate Banker at JPMorgan Chase. I like taking a messy dataset and finding the few numbers that actually explain it.</p>
-        <div class="hero-actions">
-          <a href="mailto:devrpatel27@gmail.com" class="btn btn-primary">Email me</a>
-          <a href="Dev_Patel_Resume.pdf" class="btn btn-ghost" download>Download résumé</a>
-        </div>
-        <p class="hero-status"><span class="dot" aria-hidden="true"></span>Open to analytics and operations internships</p>
+      <img src="assets/dev-patel.jpg" alt="Portrait of Dev Patel" class="hero-photo" width="160" height="160">
+      <h1>Dev Patel</h1>
+      <p class="hero-role">Management Information Systems and Operations &amp; Analytics Management at UMass Lowell</p>
+      <p class="hero-lede">I work as an Associate Banker at JPMorgan Chase and study how businesses run on data. I like taking a messy dataset and finding the few numbers that actually explain it.</p>
+      <div class="hero-actions">
+        <a href="mailto:devrpatel27@gmail.com" class="btn btn-primary">Email me</a>
+        <a href="Dev_Patel_Resume.pdf" class="btn btn-ghost" download>Download résumé</a>
       </div>
-
-      <figure class="hero-chart" aria-labelledby="chartTitle">
-        <div class="chart-head">
-          <p class="chart-title" id="chartTitle">Chase branch deposits, 2010 to 2016</p>
-          <p class="chart-readout" id="chartReadout" aria-live="polite"><b>$1,155B</b> in 2016</p>
-        </div>
-        <svg class="bars" id="bars" viewBox="0 0 420 220" role="img" aria-label="Bar chart: total Chase branch deposits rose from $614 billion in 2010 to $1,155 billion in 2016">
-          <g class="grid" aria-hidden="true">
-            <line x1="0" x2="420" y1="20" y2="20"/>
-            <line x1="0" x2="420" y1="80" y2="80"/>
-            <line x1="0" x2="420" y1="140" y2="140"/>
-            <line x1="0" x2="420" y1="200" y2="200"/>
-          </g>
-          <g id="barGroup"></g>
-        </svg>
-        <figcaption>
-          From my analysis of 5,400+ Chase branches: deposits grew 88% while the branch count grew only 16%, so most of the growth came from existing branches.
-          <a href="projects/chase-branch-deposits.html" class="text-link">Read the analysis</a>
-        </figcaption>
-      </figure>
+      <p class="hero-status"><span class="dot" aria-hidden="true"></span>Open to analytics and operations internships</p>
     </div>
   </section>
 
   <section class="section" id="work">
     <div class="section-inner">
       <div class="section-head">
-        <h2>Selected work</h2>
-        <p>Two full analyses with code, plus consulting and hands-on tech work.</p>
+        <h2>Projects</h2>
+        <p>Pick a project to see what I did. The two analyses have full write-ups with code.</p>
       </div>
 
-      <article class="feature">
+      <div class="tabs" role="tablist" aria-label="Projects">
+        <button class="tab" role="tab" id="tab-chase" aria-controls="panel-chase" aria-selected="true">Chase deposits</button>
+        <button class="tab" role="tab" id="tab-music" aria-controls="panel-music" aria-selected="false" tabindex="-1">Hit song regression</button>
+        <button class="tab" role="tab" id="tab-mill" aria-controls="panel-mill" aria-selected="false" tabindex="-1">Mill City Consulting</button>
+        <button class="tab" role="tab" id="tab-it" aria-controls="panel-it" aria-selected="false" tabindex="-1">Retail IT overhaul</button>
+      </div>
+
+      <article class="feature panel" role="tabpanel" id="panel-chase" aria-labelledby="tab-chase" tabindex="0">
         <a class="feature-img" href="projects/chase-branch-deposits.html" tabindex="-1" aria-hidden="true">
-          <img src="projects/chase-branch-deposits/fig2_distribution.png" alt="" loading="lazy">
+          <img src="projects/chase-branch-deposits/fig1_growth.png" alt="">
         </a>
         <div class="feature-body">
           <p class="meta">Data analysis, banking <span>Fall 2025</span></p>
-          <h3><a href="projects/chase-branch-deposits.html">Chase Branch Deposits Analysis</a></h3>
+          <h3>Chase Branch Deposits Analysis</h3>
           <p>Seven years of deposit data for 5,400+ JPMorgan Chase branches, cleaned and analyzed in Python (pandas) and Excel. Deposits grew from $614B to $1.16T, about half of them sit in just 12 hub offices, and a new branch takes well over five years to reach a typical branch's size.</p>
-          <dl class="figures">
-            <div><dt>Growth</dt><dd>+88%</dd></div>
-            <div><dt>Branches</dt><dd>5,412</dd></div>
-            <div><dt>Held by 12 hubs</dt><dd>50%</dd></div>
-          </dl>
-          <a href="projects/chase-branch-deposits.html" class="text-link">See the analysis and code</a>
+          <a href="projects/chase-branch-deposits.html" class="btn btn-primary">Open project</a>
         </div>
       </article>
 
-      <article class="feature">
+      <article class="feature panel" role="tabpanel" id="panel-music" aria-labelledby="tab-music" tabindex="0" hidden>
         <a class="feature-img" href="projects/music-regression.html" tabindex="-1" aria-hidden="true">
-          <img src="projects/music-regression/fig4_std_coefficients.png" alt="" loading="lazy">
+          <img src="projects/music-regression/fig4_std_coefficients.png" alt="">
         </a>
         <div class="feature-body">
           <p class="meta">Statistics, regression <span>Spring 2026</span></p>
-          <h3><a href="projects/music-regression.html">What Makes a Hit Song?</a></h3>
+          <h3>What Makes a Hit Song?</h3>
           <p>A multivariate regression on 13 Spotify and YouTube variables across about 18,000 songs to predict streaming popularity, validated with 5-fold cross validation. Cross-platform reach turned out to matter far more than how a song sounds. Voted "Fan Favorite" by peers and faculty.</p>
-          <dl class="figures">
-            <div><dt>R²</dt><dd>0.39</dd></div>
-            <div><dt>Songs</dt><dd>18K</dd></div>
-            <div><dt>Predictors</dt><dd>13</dd></div>
-          </dl>
-          <a href="projects/music-regression.html" class="text-link">See the analysis and code</a>
+          <a href="projects/music-regression.html" class="btn btn-primary">Open project</a>
         </div>
       </article>
 
-      <div class="minor-grid">
-        <article class="minor">
+      <article class="feature panel panel-text" role="tabpanel" id="panel-mill" aria-labelledby="tab-mill" tabindex="0" hidden>
+        <div class="feature-body">
           <p class="meta">Consulting <span>Fall 2026</span></p>
           <h3>Mill City Consulting</h3>
           <p>In Manning's experiential consulting course, my student team works on a real company's business problem: analyzing the client's challenge, researching options, and presenting data-driven recommendations to their stakeholders.</p>
-        </article>
-        <article class="minor">
+        </div>
+      </article>
+
+      <article class="feature panel panel-text" role="tabpanel" id="panel-it" aria-labelledby="tab-it" tabindex="0" hidden>
+        <div class="feature-body">
           <p class="meta">Technology <span>Spring 2024</span></p>
           <h3>IT lead, family retail store</h3>
-          <p>The store's only tech resource. During a full renovation I chose and set up the new point-of-sale, payment, and network systems, and connected the store to digital tools that made day-to-day work faster.</p>
-        </article>
-      </div>
+          <p>I was the store's only tech resource. During a full renovation I chose and set up the new point-of-sale, payment, and network systems, and connected the store to digital tools that made day-to-day work faster.</p>
+        </div>
+      </article>
     </div>
   </section>
 

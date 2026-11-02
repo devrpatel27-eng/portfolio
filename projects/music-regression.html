@@ -46,9 +46,7 @@
 .small { font-size: .85rem; color: var(--text-faint) !important; }
 .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: start; }
 .two > * { min-width: 0; }
-.code-bar { display: flex; flex-wrap: wrap; gap: 12px; }
 .cs pre { margin: 0; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 14px; padding: 18px; overflow: auto; max-height: 560px; font: .8rem/1.6 ui-monospace, Menlo, monospace; color: var(--text); }
-.cs .btn { cursor: pointer; font: inherit; font-size: .9rem; }
 </style>
 </head>
 <body>
@@ -164,10 +162,6 @@
     <p class="kicker">07. Code</p>
     <h2>Full Python script</h2>
     <p class="prose">pandas, NumPy, SciPy, scikit-learn, matplotlib and seaborn. Run with <code>python spotify_youtube_regression.py Spotify_Youtube.csv</code>.</p>
-    <div class="code-bar">
-      <button class="btn btn-primary" id="copyCode" type="button">Copy code</button>
-      <a class="btn btn-ghost" href="https://github.com/devrpatel27-eng/portfolio/blob/main/projects/music-regression/spotify_youtube_regression.py" target="_blank" rel="noopener">View on GitHub</a>
-    </div>
     <pre id="code"><code>&quot;&quot;&quot;
 Regression Analysis of Top Hits in Music
 Dataset: &quot;Spotify and Youtube&quot; (Kaggle, salvatorerastelli/spotify-and-youtube) -&gt; Spotify_Youtube.csv
@@ -344,12 +338,5 @@ print(table.round(4).to_string())
 
   <a class="back" href="../index.html#projects">← Back to projects</a>
 </main>
-<script>
-document.getElementById('copyCode').addEventListener('click', (e) => {
-  const b = e.currentTarget, t = document.getElementById('code').innerText;
-  navigator.clipboard.writeText(t).then(() => { b.textContent = 'Copied'; setTimeout(() => (b.textContent = 'Copy code'), 1500); })
-    .catch(() => { b.textContent = 'Copy failed'; });
-});
-</script>
 </body>
 </html>

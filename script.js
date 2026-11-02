@@ -1,56 +1,42 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
+/* Mobile nav */
+const nav = document.getElementById('nav');
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 
-navToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-  navToggle.classList.toggle('open');
-});
-
-navLinks.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-  });
-});
-
-document.querySelectorAll(
-  '.about-grid, .timeline-item, .card, .project, .skill-group, .contact-links'
-).forEach((el) => el.classList.add('fade-up'));
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
-
-document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
-
-const progressBar = document.getElementById('scrollProgress');
-function updateProgress() {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-  progressBar.style.width = pct + '%';
+function setMenu(open) {
+  navLinks.classList.toggle('open', open);
+  navToggle.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', String(open));
+  navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 }
-window.addEventListener('scroll', updateProgress, { passive: true });
-updateProgress();
+navToggle.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+navLinks.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
 
-const magneticBtn = document.querySelector('.btn-primary');
-if (magneticBtn && matchMedia('(hover: hover)').matches) {
-  magneticBtn.addEventListener('mousemove', (e) => {
-    const rect = magneticBtn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    magneticBtn.style.transform = `translate(${x * 0.25}px, ${y * 0.25 - 2}px)`;
+/* Nav rule appears once you scroll */
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* Project tabs */
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function selectTab(tab, focus) {
+  tabs.forEach((t) => {
+    const on = t === tab;
+    t.setAttribute('aria-selected', String(on));
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
   });
-  magneticBtn.addEventListener('mouseleave', () => {
-    magneticBtn.style.transform = '';
-  });
+  if (focus) tab.focus();
+  tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 }
+tabs.forEach((tab, i) => {
+  tab.addEventListener('click', () => selectTab(tab));
+  tab.addEventListener('keydown', (e) => {
+    const n = tabs.length;
+    const next = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key];
+    if (next !== undefined) { e.preventDefault(); selectTab(tabs[next], true); }
+  });
+});
